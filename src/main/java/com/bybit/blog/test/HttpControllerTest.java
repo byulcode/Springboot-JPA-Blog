@@ -1,4 +1,5 @@
 package com.bybit.blog.test;
+//Builder 장점 : 객체에 값을 넣을 때 순서를 지키지 않아도 된다. / 객체 값 순서를 헷갈려서 객체의 값을 잘못 넣는 실수를 방지한다
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,17 @@ import lombok.experimental.PackagePrivate;
 @RestController
 
 public class HttpControllerTest {
+	
+	private static final String TAG = "HttpControllerTest : ";
+	
+	@GetMapping("/http/lombok")
+	public String lombokTest() {
+		Member m = Member.builder().username("byul").password("1234").email("byul@naver.com").build();
+		System.out.println(TAG+"getter : "+m.getUsername());
+		m.setUsername("cos");
+		System.out.println(TAG+"setter : "+m.getUsername());
+		return "lombok test 완료";
+	}
 	
 	//인터넷 브라우저 요청은 무조건 get요청밖에 할 수 없다!!!!
 	// http://localhost:8080/http/get		(select)
