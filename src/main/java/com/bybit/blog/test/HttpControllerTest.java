@@ -30,7 +30,7 @@ public class HttpControllerTest {
 	}
 	
 	//인터넷 브라우저 요청은 무조건 get요청밖에 할 수 없다!!!!
-	// http://localhost:8080/http/get		(select)
+	// http://localhost:8000/blog/http/get		(select)
 	@GetMapping("/http/get")
 	public String getTest(Member m) {// MessageConverter(스프링부트)
 		// id=1&username=ssar&password=1234&email=ssar@naver.com
