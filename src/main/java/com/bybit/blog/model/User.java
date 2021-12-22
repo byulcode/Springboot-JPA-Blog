@@ -1,15 +1,19 @@
 package com.bybit.blog.model;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicInsert;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,6 +26,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder  	//빌더 패턴!!
 @Entity 	// MySQL에 User 클래스 테이블이 생성된다.
+//@DynamicInsert //insert시  null인 필드를 제외시켜 준다
 public class User {
 	
 	@Id		//Primary key
@@ -37,8 +42,10 @@ public class User {
 	@Column (nullable=false, length = 50)
 	private String email; 
 	
-	@ColumnDefault("'user'")
-	private String role;		//Enum을 쓰는게 좋다. admin, user, manager (도메인이 정해졌다 = 어떤 범위가 정해졌다)
+	// @ColumnDefault("user")
+	// DB는 RoleType이란게 없다
+	@Enumerated(EnumType.STRING)
+	private RoleType role;		//Enum을 쓰는게 좋다. admin, user, manager (도메인이 정해졌다 = 어떤 범위가 정해졌다)
 	
 	@CreationTimestamp 	//시간이 자동 입력됨
 	private Timestamp createDate;
