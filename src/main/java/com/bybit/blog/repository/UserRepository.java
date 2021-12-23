@@ -13,4 +13,5 @@ import com.bybit.blog.model.User;
 //@Repository //생략가능
 public interface UserRepository<T> extends JpaRepository<User, Integer>{
 
+
 }
