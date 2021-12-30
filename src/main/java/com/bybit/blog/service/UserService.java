@@ -2,9 +2,11 @@ package com.bybit.blog.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.bybit.blog.model.RoleType;
 import com.bybit.blog.model.User;
 import com.bybit.blog.repository.UserRepository;
 
@@ -15,15 +17,24 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepository;
 	
+	@Autowired
+	private BCryptPasswordEncoder encoder;
+	
 	
 	@Transactional	//전체가 성공하면 커밋, 하나라도 실패하면 롤백
 	public void 회원가입(User user) {
+		String rawPassword = user.getPassword();	//입력된 비밀번호 원문
+		String encPassword = encoder.encode(rawPassword);	//해쉬화된 비밀번호
+		user.setPassword(encPassword);
+		user.setRole(RoleType.USER);
 		userRepository.save(user);
 	}
 	
-	@Transactional(readOnly = true) // Select할 때 트랜잭션 시작, 서비스 종료시에 트랜잭션 종료 (정합성)	
-	public User 로그인(User user) {
-		return userRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword());
-	}
+	
+// 전통적인 로그인 방식 사용할 때 사용
+//	@Transactional(readOnly = true) // Select할 때 트랜잭션 시작, 서비스 종료시에 트랜잭션 종료 (정합성)	
+//	public User 로그인(User user) {
+//		return userRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword());
+//	}
   
 }
