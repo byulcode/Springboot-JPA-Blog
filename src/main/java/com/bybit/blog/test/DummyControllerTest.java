@@ -71,16 +71,12 @@ public class DummyControllerTest {
 		return userRepository.findAll();
 	}
 	
-//	// 한 페이지당 2건의 데이터를 리턴받아볼 예정 ..ㅎ 오류
+	// 한 페이지당 2건의 데이터를 리턴받아볼 예정 ..ㅎ 오류
 //	@GetMapping("/dummy/user")
 //	public List<User> pageList(@PageableDefault(size=2, sort="id", direction=Sort.Direction.DESC) Pageable pageable){
-//		Page<User> pagingUser = userRepository.findAll(pageable);
-//		
-//		List<User> users = pagingUser.getContent();
-//		
-//		return users;
+//		List<User> users  = userRepository.findAll(Sort.by(pageable));
 //	}
-	
+//	
 	
 	//{id} 주소로 파라미터 전달 받을 수 있음
 	// http://localhost:8000/blog/dummy/user/3
