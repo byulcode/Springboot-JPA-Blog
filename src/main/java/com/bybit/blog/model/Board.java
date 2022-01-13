@@ -47,7 +47,7 @@ public class Board {
 	
 	//mappedBy 연관관계의 주인이 아니다(FK가 아니다) 그러니 DB에 컬럼을 만들지 마세요
 	@OneToMany(mappedBy = "board", fetch = FetchType.EAGER)		//이부분 다시정리(22강)
-	private List<Reply> reply;
+	private List<Reply> replys;
 	
 	@CreationTimestamp
 	private Timestamp createDate;
